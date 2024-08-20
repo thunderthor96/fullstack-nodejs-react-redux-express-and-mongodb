@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { submitSurvey } from "../../store/slices/surveySlice";
+import { fetchUser } from "../../store/slices/authSlice";
 import SurveyForm from "./SurveyForm";
 import SurveyFormReview from "./SurveyFormReview";
 import { useNavigate } from "react-router-dom";
@@ -16,8 +17,9 @@ const SurveyNew = () => {
     setShowFormReview(true);
   };
 
-  const handleSurveySubmit = () => {
-    dispatch(submitSurvey({ values: formValues, navigate }));
+  const handleSurveySubmit = async () => {
+    await dispatch(submitSurvey({ values: formValues, navigate }));
+    dispatch(fetchUser());
   };
 
   const renderContent = () => {
